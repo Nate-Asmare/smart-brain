@@ -60,6 +60,6 @@ if (process.env.NODE_ENV === 'production') {
       res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
   }
-app.listen(3000, ()=> {
-    console.log('app is running on port 3000');
+app.listen(5000, ()=> {
+    console.log('app is running on port 5000');
 })
