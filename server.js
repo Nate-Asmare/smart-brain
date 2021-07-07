@@ -40,9 +40,9 @@ app.use(cors())
 /image --> PUT --> user
 */
 
-app.get('/', (req, res) => {
-    res.send(database.users);
-})
+// app.get('/', (req, res) => {
+//     res.send(database.users); //we can remove this code yes we should
+// })
 
 app.get('/profile/:id', (req, res) =>  profile.handleProfile(req, res, db))
 
