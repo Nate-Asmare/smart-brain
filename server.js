@@ -25,7 +25,7 @@ const db = knex({
 });
 
 // console.log(postgres.select('*').from('users'));
-
+const path = require('path');
 const app = express();
 
 app.use(bodyParser.json());
@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
     res.send(database.users);
 })
 
-app.get('/profile/:id', (req, res) => profile.handleProfile(req, res, db))
+app.get('/profile/:id', (req, res) =>  profile.handleProfile(req, res, db))
 
 app.post('/signin', (req, res) => signin.handleSignin(req, res, db, bcrypt))
 
@@ -51,6 +51,15 @@ app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcryp
 
 app.put('/image', (req, res) => {image.handleImage(req, res, db, bcrypt)})
 
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('client/build'));
+  
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+  }
 app.listen(3000, ()=> {
     console.log('app is running on port 3000');
 })
